@@ -1,0 +1,42 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+
+<div class="row py-3">
+    <div class="col-md-7">
+        <h5>Frequenty Asked Questions</h5>
+        <hr>
+        <div class="p-3">
+            {% for faq in faq %}
+                {% if faq.answer %}
+                    <small class="text-primary" data-aos="fade-left"><strong>{{faq.name}}</strong></small>
+                    <p data-aos="fade-left">{{faq.question}}</p>
+                    <small class="ml-2 text-muted" data-aos="fade-left">Answer</small>
+                    <p class="ml-4" data-aos="fade-left"><i>{{faq.answer}}</i></p>
+                    <hr>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-5">
+        <h5>Have a Question about our services?</h5>
+        <hr>
+        <span class="btn btn-primary" id="reviewBtn"><strong><i class="bi-clipboard-plus"></i> Ask Us</strong></span>
+        <div class="form d-none" id="formView">
+            <form action="" method="POST" class="p-4">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" name="name" id="" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="name">Question</label>
+                    <textarea class="form-control" type="text" name="question" cols="" rows="4" id="" placeholder="Write your Question here"></textarea>
+                </div>
+                <button class="btn btn-primary btn-sm mt-2">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

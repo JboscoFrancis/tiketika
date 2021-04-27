@@ -1,0 +1,36 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+
+<div class="row py-2">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <div class="card p-4">
+            <legend class="text-center">User Login</legend>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input class="form-control" type="text" placeholder="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Password</label>
+                    <input class="form-control" type="password" placeholder="Password" name="password" required>
+                </div>
+                <div class="form-inline">
+                    <button class="btn btn-primary btn-sm">sign in</button>
+                    <span class="ml-2"><i>Don't have account? <a href="{% url 'registration' %}">sign up</i></a></span>
+                </div>
+                <hr>
+                <span>Forget password? <a href="">Reset</a></span>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>
+
+{% endblock %}

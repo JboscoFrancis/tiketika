@@ -1,0 +1,33 @@
+
+
+{% block content %}
+<style>
+    #mydata{
+        margin-left: 200px;
+    }
+</style>
+<div>
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4" id="mydata">
+            <h5><u>ONLINE BUS RESERVATION SYSTEM</u></h5>
+
+            <p><strong>Name: </strong>{{ticket.passenger}}</p>
+            <p><strong>Bus name: </strong>{{ticket.bus}}</p>
+            <p><strong>From: </strong>{{ticket.source}}</p>
+            <p><strong>To: </strong>{{ticket.destination}}</p>
+            <p><strong>Date: </strong>{{ticket.journey_date}}</p>
+            <p><strong>Departure: </strong>{{ticket.departure}}</p>
+            <p><strong>Fare: </strong>{{ticket.fare}}</p>
+            <p><strong>Seat number: </strong>{{ticket.seat_no}}</p>
+            <p><strong>DATE TICKET: </strong>{{today}}</p>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

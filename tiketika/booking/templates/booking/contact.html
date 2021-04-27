@@ -1,0 +1,39 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+
+<div class="row py-3">
+    <div class="col-md-4">
+        <h5>Catch us on different platforms</h5>
+        <ul>
+            <li><i class="bi bi-twitter"></i> twitter</li>
+            <li><i class="bi bi-facebook"></i> facebook</li>
+            <li><i class="bi bi-instagram"></i> Instagram</li>
+        </ul>
+
+    </div>
+    <div class="col-md-5">
+        <h5>Contact us now</h5>
+        <div class="form" id="formView">
+            <form action="" method="POST" class="p-2">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" name="name" id="" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Message</label>
+                    <textarea class="form-control" type="text" name="message" cols="" rows="4" id="" placeholder="Write your message here" required></textarea>
+                </div>
+                <button class="btn btn-primary btn-sm mt-2">Send message</button>
+            </form>
+        </div>
+
+    </div>
+    <div class="col-md-3">
+
+    </div>
+</div>
+
+
+{% endblock %}

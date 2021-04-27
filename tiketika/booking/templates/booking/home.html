@@ -1,0 +1,199 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+
+      <div class="carousel-item active" style="background-image: url(static/images/bus001.jpg);">
+        <div class="container mycasousel">
+            <h2>The easiest way to travel</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis quia cumque, aspernatur provident quaerat earum? Veritatis harum culpa tempore illum eum dolor sequi, adipisci omnis repellendus provident assumenda! Distinctio aut maiores, debitis aliquid, nesciunt incidunt, ducimus possimus et veniam repellendus quisquam rem non suscipit! Quibusdam aliquid a aperiam libero. Eos.</p>
+            <div class="text-center mb-3">
+              <a href="#busform" class="btn btn-primary">Find Bus Now</a>
+            </div>
+        </div>
+      </div>
+      <div class="carousel-item" style="background-image: url(static/images/bus2.jpg);">
+      <div class="container mycasousel">
+          <h2>Get Ticket Simple and Fast</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit blanditiis mollitia veritatis doloremque reiciendis quisquam eaque, praesentium error tempora asperiores natus, illum quas dicta adipisci alias magni in rerum. Vel?</p>
+          <div class="text-center mb-3">
+            <a href="#busform" class="btn btn-primary">Find Bus Now</a>
+          </div>
+      </div>
+      </div>
+      <div class="carousel-item" style="background-image: url(static/images/bus3.jpg);">
+        <div class="container mycasousel">
+            <h2>Available Anytime</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur voluptate necessitatibus culpa autem dignissimos sit eveniet illo, at, ducimus voluptates fuga vel, asperiores dicta. Expedita officia, ratione commodi accusantium error dolore cupiditate necessitatibus delectus excepturi molestiae esse quos.</p>
+            <div class="text-center mb-3">
+              <a href="#busform" class="btn btn-primary">Find Bus Now</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+</div>
+    <div class="container-fluid py-5">
+      <div class="row justify-content-center" id="">
+        <div class="col-md-10" id="busform">
+          <div class="row justify-content-center">
+            <button class="btn btn-outline-primary mb-3" id="searchBtn"><i class="bi bi-search"></i> Search Bus</button>
+            <h3 class="text-info text-center" id="title01">all available buses and their routes</h3>
+            <div class="d-none col-md-4" id="searchBusForm">
+              <h3 class="text-info text-center">Search Bus Now</h3>
+              <form method="get">
+                <div class="p-4" style="border: 1px solid rgb(172, 171, 171); border-radius: 4px;">
+                  {{ filter.form.as_p }}
+                  <button class="btn btn-outline-primary btn-sm btn-block">Search</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+          <!--Hidden form -->
+          <div class="d-none form">
+            <h3 class="card-header bg-info text-center">Find Bus</h3>
+            <form action="{% url 'home' %}" method="POST">
+                {% csrf_token %}
+              <fieldset class="p-2">
+                <div class="form-group">
+                  <label for="from">From</label>
+                  <input class="form-control" type="text" name="from" id="from" list="suggestions" placeholder="from" required>
+                  <datalist id="suggestions">
+                      <option value="Arusha">
+                      <option value="Singida">
+                      <option value="Dodoma">
+                      <option value="Morogoro">
+                      <option value="Dar">
+                      <option value="Mbeya">
+                      <option value="Tanga"> 
+                      <option value="Mwanza">
+                  </datalist>
+                </div>
+
+                <div class="form-group">
+                  <label for="destination">To</label>
+                  <input class="form-control" type="text" name="destination" id="destination" list="suggestions" placeholder="to" required>
+                  <datalist id="suggestions">
+                    <option value="Arusha">
+                    <option value="Singida">
+                    <option value="Dodoma">
+                    <option value="Morogoro">
+                    <option value="Dar">
+                    <option value="Mbeya">
+                    <option value="Tanga"> 
+                    <option value="Mwanza">
+                </datalist>
+                </div>
+
+                <div class="form-group">
+                  <label for="date">Date</label>
+                  <input class="form-control" type="date" name="journey-date" id="from" placeholder="date" required>
+                </div>
+                <div class="text-center mt-1">
+                  <button class="btn btn-primary btn-sm">Search Bus</button>
+                </div>
+              </fieldset>
+            </form>
+            <!--End Hidden form -->
+          </div>
+          <div class="route-list">
+            <div class="table-responsive p-2 bg-light">
+              {% if route %}
+              <table class="table table-bordered text-center text-dark">
+                  <thead class="thead-light" style="font-weight: bold;">
+                      <th scope="col">Bus Name</th>
+                      <th scope="col">From</th>
+                      <th scope="col">To</th>
+                      <th scope="col">Fare</th>
+                      <th scope="col">Date of journey</th>
+                      <th scope="col">Action</th>
+                  </thead>
+                  <tbody>
+                  
+                    {% for bus_list in route %}
+                    
+                
+                      <tr>
+                          <td>{{bus_list.bus.bus_name}}</td>
+                          <td>{{bus_list.source}}</td>
+                          <td>{{bus_list.destination}}</td>
+                          <td>{{bus_list.fares}}</td>
+                          <td>{{bus_list.journey_date}}</td>
+                          <td><a class="btn btn-outline-success btn-sm" href="{% url 'booking_info' bus_list.id %}">Book now</a></td>
+                      </tr>
+
+                    {% endfor %}
+                  </tbody>
+              </table>
+              {% else %}
+                <p class="text-center text-danger">No buses available for that Route</p>
+              {% endif %}
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container py-3 p-2 mt-4 bg-light" data-aos="fade-right">
+      <hr>
+      <h3 class="text-center text-info">User Reviews</h3>
+      <div class="row mt-5">
+        {% for review in review %}
+        <div class="col-md-4 mb-2">
+          <div class="p-2" style="border: 1px solid rgb(228, 227, 227); border-radius: 4px;">
+            <small class="text-primary"><strong>{{review.name}}</strong></small>
+            <p>{{review.review}}</p>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="col-md-6 py-4">
+          <span class="btn btn-primary" id="reviewBtn"><i class="bi-clipboard-plus"></i> Add your Review</span>
+          <div class="d-none form p-2" id="formView">
+            <form class="" action="{% url 'review' %}" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" type="text" name="name" id="" placeholder="Enter your name" required>
+              </div>
+              <div class="form-group mt-2">
+                <label for="review">Review</label>
+                <textarea class="form-control" name="review" id="" cols="30" rows="4" required></textarea>
+              </div>
+              <div class="text-center mt-3">
+                <button class="btn btn-primary btn-sm">Send</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+
+<script>
+  var searchBtn = document.getElementById('searchBtn')
+
+  searchBtn.addEventListener('click', function(){
+    document.getElementById('searchBusForm').classList.remove('d-none')
+    document.getElementById('searchBtn').classList.add('d-none')
+    document.getElementById('title01').classList.add('d-none')
+  })
+</script>
+
+
+{% endblock %}

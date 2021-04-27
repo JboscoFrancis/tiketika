@@ -1,0 +1,123 @@
+{% extends 'booking/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    @media (max-width: 876px) {
+        .mybtn {
+            padding: .40rem;
+            font-size: .600rem;
+            line-height: .5;
+            border-radius: .2rem;
+        }
+    }
+    @media (max-width: 464px) {
+        .mybtn {
+            padding: .24rem;
+            font-size: .600rem;
+            line-height: .5;
+            border-radius: .2rem;
+        }
+    }
+</style>
+<div class="row">
+    <div class="booking mt-2">
+        <h5 class="text-center">YOUR BOOKING INFORMATION</h5>
+        <div class="col-md-12">
+            <form action="{% url 'booking' %}" method="POST" onsubmit="return validate()">
+                <div>
+                {% csrf_token %}
+                <div class="table-responsive">
+                    <table class="table text-center table-bordered">
+                        <thead class="table thead-light">
+                            <th>Bus number</th>
+                            <th>Bus name</th>
+                            <th>From</th>
+                            <th>Destination</th>
+                            <th>Departure</th>
+                            <th>Arrival</th>
+                            <th>Journey date</th>
+                            <th>Fares</th>
+                        </thead>
+                        <tr>
+                            <td>
+                                {{detail.bus.bus_no}}
+                                <input class="d-none form-control mb-2" type="text" value='{{detail.bus.bus_no}}' name="bus_no" readonly>
+                            </td>
+                            <td>
+                                {{detail.bus.bus_name}}
+                                <input class="d-none form-control mb-2" type="text" value='{{detail.bus.bus_name}}' name="bus_name" readonly>
+                            </td>
+                            <td>
+                                {{detail.source}}
+                                <input class="d-none form-control mb-2" type="text" value='{{detail.source}}' name="from" readonly>
+                            </td>
+                            <td>
+                                {{detail.destination}}
+                                <input class="d-none form-control mb-2" type="text" value='{{detail.destination}}' name="destination" readonly>
+                            </td>
+                            <td>
+                                {{detail.departure|date:"H:i"}}
+                                <input class="d-none form-control mb-2" type="text" value='{{detail.departure|date:"H:i"}}' name="departure" readonly>
+                            </td>
+                            <td>
+                                {{detail.arrival|date:"H:i"}}
+                                <input class="d-none form-control mb-2" type="text" value='{{detail.arrival|date:"H:i"}}' name="arrival" readonly>
+                            </td>
+                            <td>
+                                {{detail.journey_date|date:"Y-m-d"}}
+                                <input class="d-none form-control mb-2" type="text" value='{{detail.journey_date|date:"Y-m-d"}}' name="dateofjourney" readonly>
+                            </td>
+                            <td>
+                                {{detail.fares}}
+                                <input class="d-none form-control mb-2" type="text" value='{{detail.fares}}' name="fares" readonly>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row mt-4 p-4">
+                    <!--get bus id as pk-->
+                    <td>
+                        <input class="form-control d-none mb-2" type="text" value='{{detail.bus.id}}' name="bus_id" readonly>
+                    </td>
+                    <!-------->
+
+                    <div class="col-md-5">
+                        <h5 class="text-center">Enter your personal details to book</h5>
+                        <div class="form p-4">
+                            {{form}}
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-7">
+                        <h5>select seat below</h5> 
+                        <span class="btn btn-sm btn-success p-2" style="cursor: default;"></span> Booked
+                        <span class="btn btn-sm btn-secondary p-2 ml-2" style="cursor: default;"> </span> Empty
+                        <span class="btn btn-sm btn-warning p-2 ml-2" style="cursor: default;"></span> Selected
+                        <br>
+                        <br>
+                        <span>Seat no: <input  class="mb-2 col-xs-2" type="text" name="seat_no" id="selectedSeat" value="" readonly placeholder="select seat below"></span>
+                        <div>
+                            {% for seat in range %}
+                            {% if seat not in reserverd_seat %}
+                            <span class="btn btn-secondary btn-sm mybtn seatList mb-2" data-seat="{{seat}}" id="{{seat}}">{{seat}}</span>
+                            {% else %}
+                            <span class="btn btn-success btn-sm mb-2 mybtn" style="cursor: default;">{{seat}}</span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <br>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-success">Confirm Booking</button>
+                </div>
+            </form>
+        </div>
+        <br>
+        <hr>
+    </div>
+</div>
+
+{% endblock %}

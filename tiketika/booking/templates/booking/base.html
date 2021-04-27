@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Bus Booking</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="{% static 'bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons/bootstrap-icons.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <style>
+
+    </style>
+    
+</head>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-lg fixed-top" id="header">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'home' %}">TIKETIKA</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
+              <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+              <a class="nav-item nav-link" href="{% url 'ticket' %}">Get ticket</a>
+              <a class="nav-item nav-link" href="{% url 'cancel' %}">Cancel Booking</a>
+              <a class="nav-item nav-link" href="{% url 'contact' %}">Contact Us</a>
+              <a class="nav-item nav-link" href="{% url 'helps' %}">Help</a>
+              <a class="nav-item nav-link" href="{% url 'service' %}">Services</a>
+              <a class="nav-item nav-link" href="{% url 'faq' %}">FAQs</a>
+            </div>
+            <div class="navbar-nav ml-auto">
+              {% if user.is_authenticated %}
+              <a class="nav-item nav-link text-warning">Welcome <strong>{{user.username|capfirst}}</strong></a>
+              <a class="nav-item nav-link" href="{% url 'logout' %}" style="font-size: 14px;">Logout</a>
+              {% else %}
+              <a class="nav-item nav-link" href="{% url 'login' %}">Agent Login</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container-fluid" id="content-block">
+      <div class="alert alert-info mt-0 mb-0">
+        <marquee behavior="alternate" direction=""><h4 class="top-text">ONLINE BUS BOOKING SYSTEM</h4></marquee>
+      </div>
+      {% for message in messages %}
+      <script>
+          swal.fire({
+              text: "{{message}}",
+              icon: "{{message.tags}}"
+          });
+      </script>
+      {% endfor %}
+
+    {% block content %}
+
+
+    
+    {% endblock %}
+
+    </div>
+<!-- Footer -->
+<footer class="text-center text-lg-start pt-1 footer">
+  <hr>
+  <!-- Grid container -->
+  <div class="container">
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <div class="col-lg-6 mb-4 mb-md-0 footer-content">
+        <h5 class="text-uppercase">ONLINE BUS BOOKING</h5>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+          molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+          voluptatem veniam, est atque cumque eum delectus sint!
+        </p>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0 footer-link" >
+        <h5 class="text-uppercase text-light">QUICK LINKS</h5>
+
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a href="https://github.com/JboscoFrancis" target="_blank" class="text-dark">Github</a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/channel/UC6B5BSzC4GnBu2-XPC8V_hA" target="_blank" class="text-dark">Youtube</a>
+          </li>
+          <li>
+            <a href="https://twitter.com/jbsoftpc" target="_blank" class="text-dark">twitter</a>
+          </li>
+          <li>
+            <a href="https://web.facebook.com/johnbosco.francis.50/" target="_blank" class="text-dark">facebook</a>
+          </li>
+        </ul>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-3 col-md-6 mb-md-0 footer-link">
+
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center text-light p-3" style="background-color: rgba(145, 145, 145, 0.9);">
+    © 2020 Copyright:
+    <a class="" href="https://github.com/JboscoFrancis">Jbosco Francis</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top"><i class="bi bi-arrow-up-circle"></i></a>
+
+
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script>
+      AOS.init({
+          offset: 200,
+          duration: 2000,
+      });
+    </script>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

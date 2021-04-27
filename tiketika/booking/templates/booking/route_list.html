@@ -1,0 +1,45 @@
+{% extends 'booking/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="row">
+    <div class="bus_list">
+        {% if fr and dest %}
+        <h3 class="text-center">Available routes from {{fr|capfirst}} to {{dest|capfirst}}</h3>
+        {% else %}
+        <h3 class="text-center">All Available Routes</h3>
+        {% endif %}
+        <div class="table-responsive py-2">
+            <table class="table table-bordered text-center text-dark">
+                <thead class="thead-light" style="font-weight: bold;">
+                    <th scope="col">Bus number</th>
+                    <th scope="col">Bus Name</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Fare</th>
+                    <th scope="col">Date of journey</th>
+                    <th scope="col">Action</th>
+                </thead>
+                <tbody>
+                {% for bus_list in bus_list %}
+                
+                    <tr>
+                        <td>{{bus_list.bus.bus_no}}</td>
+                        <td>{{bus_list.bus.bus_name}}</td>
+                        <td>{{bus_list.source}}</td>
+                        <td>{{bus_list.destination}}</td>
+                        <td>{{bus_list.fares}}</td>
+                        <td>{{bus_list.journey_date}}</td>
+                        <td><a class="btn btn-outline-success btn-sm" href="{% url 'booking_info' bus_list.id %}">Book now</a></td>
+                    </tr>
+               
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

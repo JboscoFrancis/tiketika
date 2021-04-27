@@ -1,0 +1,52 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+<div class="row py-2">
+    <div class="table table-responsive col-md-8">
+        <p class="text-center">Below are your ticket information</p>
+        <table class="table table-bordered">
+            <thead class="table thead-light">
+                <th>Name</th>
+                <th>Bus</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Date</th>
+                <th>Departure</th>
+                <th>Fare</th>
+                <th>Seat</th>
+            </thead>
+            <tr>
+                <td>{{ticket.passenger}}</td>
+                <td>{{ticket.bus}}</td>
+                <td>{{ticket.source}}</td>
+                <td>{{ticket.destination}}</td>
+                <td>{{ticket.journey_date}}</td>
+                <td>{{ticket.departure}}</td>
+                <td>{{ticket.fare}}</td>
+                <td>{{ticket.seat_no}}</td>
+            </tr>
+        </table>
+        <hr>
+
+        <!--check if ticket is paid-->
+        {% if ticket.complete == True %}
+        <div class="mt-3 text-center">
+            <a class="btn btn-outline-primary" href="{% url 'pdf' ticket.id %}">download your ticket</a>
+        </div>
+        {% else %}
+        <script>
+            swal.fire({
+                text: "Sorry this ticket not paid, pay now",
+                icon: "warning"
+            })
+            .then((value) => {
+                location.replace("{% url 'ticket' %}")
+              });
+        </script>
+        <hr>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}
